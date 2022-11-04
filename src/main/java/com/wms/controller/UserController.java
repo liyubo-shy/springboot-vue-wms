@@ -2,6 +2,8 @@ package com.wms.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.wms.common.QueryPageParam;
 import com.wms.entity.User;
@@ -69,11 +71,23 @@ public class UserController {
 
     //分页查询
     @PostMapping("/listPage")
-    public void listPage(@RequestBody QueryPageParam query){
-        System.out.println("页数="+query.getPageNum());
-        System.out.println("条数="+query.getPageSize());
+    public List<User> listPage(@RequestBody QueryPageParam query){
+        //拿到参数的HashMap集合
         HashMap param = query.getParam();
-        System.out.println(param);
+        //分页
+        Page<User> page = new Page<>();
+        //第几页
+        page.setCurrent(query.getPageNum());
+        //每页数量
+        page.setSize(query.getPageSize());
+        //模糊查询by name
+        LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        userLambdaQueryWrapper.like(User::getName,param.get("name").toString());
+
+        IPage<User> result = userService.page(page, userLambdaQueryWrapper);
+
+        System.out.println("总计："+result.getTotal()+"条");
+        return result.getRecords();
 
     }
 }

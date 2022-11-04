@@ -12,6 +12,7 @@ import org.springframework.boot.web.embedded.undertow.UndertowReactiveWebServerF
 import org.springframework.web.bind.annotation.*;
 
 import javax.jnlp.ClipboardService;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
 
@@ -68,9 +69,11 @@ public class UserController {
 
     //分页查询
     @PostMapping("/listPage")
-    public void listPage(@RequestBody QueryPageParam param){
-        System.out.println("页数="+param.getPageNum());
-        System.out.println("条数="+param.getPageSize());
+    public void listPage(@RequestBody QueryPageParam query){
+        System.out.println("页数="+query.getPageNum());
+        System.out.println("条数="+query.getPageSize());
+        HashMap param = query.getParam();
+        System.out.println(param);
 
     }
 }

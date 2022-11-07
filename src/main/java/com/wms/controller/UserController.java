@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.embedded.undertow.UndertowReactiveWebServerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.jnlp.ClipboardService;
 import java.util.HashMap;
 import java.util.List;

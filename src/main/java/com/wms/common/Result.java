@@ -14,12 +14,11 @@ public class Result {
     private Long total;
     private Object data;
 
-    private static Result result (int code,String msg,Long total,Object data){
+    private static Result result(int code, String msg, Long total, Object data) {
         Result res = new Result();
         res.setCode(code);
         res.setMsg(msg);
-
-
+        return res;
     }
 
 
